@@ -1,8 +1,8 @@
 import { ZodError, z } from 'zod';
 
-import { Validate, ValidateIf, ValidateNested, validate } from '../lib';
+import { Validate, ValidateIf, ValidateNested, validateByPlain } from '../lib';
 
-describe('validate', () => {
+describe('validateByPlain', () => {
   class Identity {
     @Validate(z.string().min(2).trim())
     name: string;
@@ -26,38 +26,28 @@ describe('validate', () => {
   describe('with partial false', () => {
     describe('with valid data', () => {
       it('validates correctly and returns the validated object', () => {
-        const instance = new User();
+        const data = {
+          email: 'test@test.com',
+          identity: { name: 'Josh', age: '21' },
+        };
 
-        instance.email = 'test@test.com';
-        instance.identity = <any>{ name: 'Josh', age: '21' };
-
-        const result = validate(instance);
+        const result = validateByPlain(User, data);
 
         expect(result).toBeInstanceOf(User);
-        expect(result).toEqual({
+        expect(validateByPlain(User, data)).toEqual({
           email: 'test@test.com',
           state: 'created',
           identity: { name: 'Josh', age: 21 },
         });
         expect(result.identity).toBeInstanceOf(Identity);
-
-        expect(instance).toEqual({
-          email: 'test@test.com',
-          state: 'created',
-          identity: { name: 'Josh', age: 21 },
-        });
-        expect(instance.identity).toBeInstanceOf(Identity);
       });
     });
 
     describe('with invalid data', () => {
       it('throws an exception of type ZodError', () => {
-        const instance = new User();
+        const data = { email: 'test@test.com', identity: null };
 
-        instance.email = 'test@test.com';
-        instance.identity = null as any;
-
-        expect(() => validate(instance)).toThrow(ZodError);
+        expect(() => validateByPlain(User, data)).toThrow(ZodError);
       });
     });
   });
@@ -65,24 +55,20 @@ describe('validate', () => {
   describe('with partial true', () => {
     describe('with valid data', () => {
       it('validates correctly and returns the validated object', () => {
-        const instance = new User();
+        const data = { email: 'test@test.com' };
 
-        instance.email = 'test@test.com';
-
-        const result = validate(instance, true);
+        const result = validateByPlain(User, data, true);
 
         expect(result).toBeInstanceOf(User);
-        expect(result).toEqual({ email: 'test@test.com' });
+        expect(result).toEqual(data);
       });
     });
 
     describe('with invalid data', () => {
       it('throws an exception of type ZodError', () => {
-        const instance = new User();
+        const data = { email: 'test' };
 
-        instance.email = 'test';
-
-        expect(() => validate(instance, true)).toThrow(ZodError);
+        expect(() => validateByPlain(User, data, true)).toThrow(ZodError);
       });
     });
   });

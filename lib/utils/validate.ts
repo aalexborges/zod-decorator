@@ -1,7 +1,11 @@
-import { getSchema } from './get-schema';
-import { Type } from '../interfaces/type.interface';
+import _ from 'lodash';
 
-export function validate<T>(cls: Type<T>, data: Record<string, any>, partial: boolean = false) {
-  if (partial) return getSchema(cls, data).partial().parse(data);
-  return getSchema(cls, data).parse(data);
+import { getSchema } from './get-schema';
+
+/**
+ * Performs validation on the given object class based on the decorators used in it.
+ */
+export function validate<T extends object>(object: T, partial: boolean = false): T {
+  if (partial) return _.mergeWith(object, getSchema(object).partial().parse(object));
+  return _.mergeWith(object, getSchema(object).parse(object));
 }

@@ -19,7 +19,7 @@ describe('ValidateNested', () => {
       const metadata = Reflect.getMetadata(ZOD_CV_SCHEMA, Test);
 
       expect(JSON.stringify(metadata)).toEqual(
-        JSON.stringify({ identity: z.object({ name: z.string().min(2).trim() }) }),
+        JSON.stringify({ identity: z.object({ name: z.string().min(2).trim() }).transform(v => v) }),
       );
     });
 
@@ -32,7 +32,12 @@ describe('ValidateNested', () => {
       const metadata = Reflect.getMetadata(ZOD_CV_SCHEMA, Test);
 
       expect(JSON.stringify(metadata)).toEqual(
-        JSON.stringify({ identity: z.object({ name: z.string().min(2).trim() }).nullish() }),
+        JSON.stringify({
+          identity: z
+            .object({ name: z.string().min(2).trim() })
+            .transform(v => v)
+            .nullish(),
+        }),
       );
     });
 
@@ -45,7 +50,12 @@ describe('ValidateNested', () => {
       const metadata = Reflect.getMetadata(ZOD_CV_SCHEMA, Test);
 
       expect(JSON.stringify(metadata)).toEqual(
-        JSON.stringify({ identity: z.object({ name: z.string().min(2).trim() }).nullable() }),
+        JSON.stringify({
+          identity: z
+            .object({ name: z.string().min(2).trim() })
+            .transform(v => v)
+            .nullable(),
+        }),
       );
     });
 
@@ -58,7 +68,12 @@ describe('ValidateNested', () => {
       const metadata = Reflect.getMetadata(ZOD_CV_SCHEMA, Test);
 
       expect(JSON.stringify(metadata)).toEqual(
-        JSON.stringify({ identity: z.object({ name: z.string().min(2).trim() }).optional() }),
+        JSON.stringify({
+          identity: z
+            .object({ name: z.string().min(2).trim() })
+            .transform(v => v)
+            .optional(),
+        }),
       );
     });
 
@@ -74,6 +89,7 @@ describe('ValidateNested', () => {
         JSON.stringify({
           identity: z
             .object({ name: z.string().min(2).trim() })
+            .transform(v => v)
             .nullable()
             .optional(),
         }),
@@ -89,7 +105,7 @@ describe('ValidateNested', () => {
       const metadata = Reflect.getMetadata(ZOD_CV_SCHEMA, Test);
 
       expect(JSON.stringify(metadata)).toEqual(
-        JSON.stringify({ identity: z.object({ name: z.string().min(2).trim() }) }),
+        JSON.stringify({ identity: z.object({ name: z.string().min(2).trim() }).transform(v => v) }),
       );
     });
   });
@@ -104,7 +120,7 @@ describe('ValidateNested', () => {
       const metadata = Reflect.getMetadata(ZOD_CV_SCHEMA, Test);
 
       expect(JSON.stringify(metadata)).toEqual(
-        JSON.stringify({ identity: z.array(z.object({ name: z.string().min(2).trim() })) }),
+        JSON.stringify({ identity: z.array(z.object({ name: z.string().min(2).trim() }).transform(v => v)) }),
       );
     });
 
@@ -117,7 +133,7 @@ describe('ValidateNested', () => {
       const metadata = Reflect.getMetadata(ZOD_CV_SCHEMA, Test);
 
       expect(JSON.stringify(metadata)).toEqual(
-        JSON.stringify({ identity: z.array(z.object({ name: z.string().min(2).trim() })).nullish() }),
+        JSON.stringify({ identity: z.array(z.object({ name: z.string().min(2).trim() }).transform(v => v)).nullish() }),
       );
     });
 
@@ -130,7 +146,9 @@ describe('ValidateNested', () => {
       const metadata = Reflect.getMetadata(ZOD_CV_SCHEMA, Test);
 
       expect(JSON.stringify(metadata)).toEqual(
-        JSON.stringify({ identity: z.array(z.object({ name: z.string().min(2).trim() })).nullable() }),
+        JSON.stringify({
+          identity: z.array(z.object({ name: z.string().min(2).trim() }).transform(v => v)).nullable(),
+        }),
       );
     });
 
@@ -143,7 +161,9 @@ describe('ValidateNested', () => {
       const metadata = Reflect.getMetadata(ZOD_CV_SCHEMA, Test);
 
       expect(JSON.stringify(metadata)).toEqual(
-        JSON.stringify({ identity: z.array(z.object({ name: z.string().min(2).trim() })).optional() }),
+        JSON.stringify({
+          identity: z.array(z.object({ name: z.string().min(2).trim() }).transform(v => v)).optional(),
+        }),
       );
     });
 
@@ -158,7 +178,7 @@ describe('ValidateNested', () => {
       expect(JSON.stringify(metadata)).toEqual(
         JSON.stringify({
           identity: z
-            .array(z.object({ name: z.string().min(2).trim() }))
+            .array(z.object({ name: z.string().min(2).trim() }).transform(v => v))
             .nullable()
             .optional(),
         }),
@@ -174,7 +194,7 @@ describe('ValidateNested', () => {
       const metadata = Reflect.getMetadata(ZOD_CV_SCHEMA, Test);
 
       expect(JSON.stringify(metadata)).toEqual(
-        JSON.stringify({ identity: z.array(z.object({ name: z.string().min(2).trim() })).min(2) }),
+        JSON.stringify({ identity: z.array(z.object({ name: z.string().min(2).trim() }).transform(v => v)).min(2) }),
       );
     });
 
@@ -187,7 +207,7 @@ describe('ValidateNested', () => {
       const metadata = Reflect.getMetadata(ZOD_CV_SCHEMA, Test);
 
       expect(JSON.stringify(metadata)).toEqual(
-        JSON.stringify({ identity: z.array(z.object({ name: z.string().min(2).trim() })).max(2) }),
+        JSON.stringify({ identity: z.array(z.object({ name: z.string().min(2).trim() }).transform(v => v)).max(2) }),
       );
     });
   });

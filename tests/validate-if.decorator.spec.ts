@@ -19,7 +19,7 @@ describe('ValidateIf', () => {
 
       const conditionalMetadata = Reflect.getMetadata(ZOD_CV_CONDITIONAL, Test);
 
-      expect(conditionalMetadata).toEqual({ name: { conditional, nullish: false } });
+      expect(conditionalMetadata).toEqual({ name: conditional });
     });
   });
 
@@ -29,7 +29,7 @@ describe('ValidateIf', () => {
 
       class Test {
         @Validate(z.string().min(2).trim())
-        @ValidateIf(conditional, true)
+        @ValidateIf(conditional)
         name?: string;
 
         @Validate(z.enum(['created', 'completed']).default('created'))
@@ -38,7 +38,7 @@ describe('ValidateIf', () => {
 
       const conditionalMetadata = Reflect.getMetadata(ZOD_CV_CONDITIONAL, Test);
 
-      expect(conditionalMetadata).toEqual({ name: { conditional, nullish: true } });
+      expect(conditionalMetadata).toEqual({ name: conditional });
     });
   });
 });

@@ -1,6 +1,7 @@
 # source
 lib
 tests
+coverage
 index.ts
 package-lock.json
 tslint.json
