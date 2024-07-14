@@ -5,12 +5,12 @@
   "license": "MIT",
   "author": "Alex Borges",
   "private": false,
-  "main": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "url": "https://github.com/aalexborges/zod-decorator#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aalexborges/zod-decorator"
+    "url": "git+https://github.com/aalexborges/zod-decorator.git"
   },
   "bugs": {
     "url": "https://github.com/aalexborges/zod-decorator/issues"
