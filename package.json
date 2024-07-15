@@ -1,7 +1,7 @@
 {
   "name": "zod-decorator",
   "description": "Decorators for Zod, use the full power of the validator easily in class",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "author": "Alex Borges",
   "private": false,
